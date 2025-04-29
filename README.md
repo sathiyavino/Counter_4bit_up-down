@@ -59,6 +59,25 @@ Functional Simulation:
 ### Verilog code for 4-Bit Up-Down Counter:
 
 */Program  for  4-Bit Up-Down Counter
+module up_down_counter (
+    input wire clk,        // Clock input
+    input wire reset,      // Asynchronous reset
+    input wire up_down,    // Control signal: 1 = count up, 0 = count down
+    output reg [3:0] count // 4-bit counter output
+);
+always @(posedge clk or posedge reset) begin
+    if (reset) begin
+        count <= 4'b0000; // Reset the counter
+    end else begin
+        if (up_down) begin
+            count <= count + 1; // Count up
+        end else begin
+            count <= count - 1; // Count down
+        end
+    end
+end
+
+endmodule
 
 	Use Save option or Ctrl+S to save the code or click on the save option from the top most right corner and close the text file.
 
@@ -69,7 +88,42 @@ Functional Simulation:
 ### Test-bench code for 4-Bit Up-Down Counter:
 
 */Test bench Program  for  4-Bit Up-Down Counter
+`timescale 1ns / 1ps
 
+module tb_up_down_counter;
+    reg clk;
+    reg reset;
+    reg up_down;
+    wire [3:0] count;
+    up_down_counter uut (
+        .clk(clk),
+        .reset(reset),
+        .up_down(up_down),
+        .count(count)
+    );
+    always #5 clk = ~clk;
+
+    initial begin 
+        clk = 0;
+        reset = 1;
+        up_down = 1; // Start with count up
+        #10;
+        reset = 0;
+        #100;
+        up_down = 0;
+        #100;
+        reset = 1;
+        #10;
+        reset = 0;
+        up_down = 1;
+        #50;
+        $finish;
+    end
+    initial begin
+        $monitor("Time = %0t | Reset = %b | Up_Down = %b | Count = %b", 
+                  $time, reset, up_down, count);
+    end
+endmodule
 ### To Launch Simulation tool
 	linux:/> nclaunch -new&            // “-new” option is used for invoking NCVERILOG for the first time for any design
 
