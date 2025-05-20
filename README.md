@@ -57,6 +57,7 @@ Functional Simulation:
 (Note : File name should be with HDL Extension)
 
 ### Verilog code for 4-Bit Up-Down Counter:
+```
 
 */Program  for  4-Bit Up-Down Counter
 module up_down_counter (
@@ -78,6 +79,7 @@ always @(posedge clk or posedge reset) begin
 end
 
 endmodule
+```
 
 	Use Save option or Ctrl+S to save the code or click on the save option from the top most right corner and close the text file.
 
@@ -86,6 +88,7 @@ endmodule
 	Similarly, create your test bench using gedit <filename_tb>.v or <filename_tb>.vhdl to open a new blank document (4bitup_down_count_tb.v).
 
 ### Test-bench code for 4-Bit Up-Down Counter:
+```
 
 */Test bench Program  for  4-Bit Up-Down Counter
 `timescale 1ns / 1ps
@@ -124,6 +127,7 @@ module tb_up_down_counter;
                   $time, reset, up_down, count);
     end
 endmodule
+```
 ### To Launch Simulation tool
 	linux:/> nclaunch -new&            // “-new” option is used for invoking NCVERILOG for the first time for any design
 
